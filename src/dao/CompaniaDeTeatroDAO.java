@@ -45,5 +45,6 @@ public class CompaniaDeTeatroDAO {
 	 */
 	public void setConn(Connection con){
 		this.conn = con;
+		//xdxd
 	}
 }
