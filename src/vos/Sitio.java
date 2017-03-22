@@ -34,7 +34,7 @@ public class Sitio {
 	@JsonProperty(value="cuposDisponibles")
 	private Integer cuposDisponibles;
 
-	public Sitio(@JsonProperty(value="nombreCiudad") String nombreCiudad, @JsonProperty(value="nombreSitio")String nombreSitio,@JsonProperty(value="abierto") Boolean abierto, @JsonProperty(value="capacidad")Integer capacidad, @JsonProperty(value="tipoSilla")String tipoSilla,
+	public Sitio(@JsonProperty(value="nombreCiudad") String nombreCiudad, @JsonProperty(value="abierto") Boolean abierto, @JsonProperty(value="capacidad")Integer capacidad, @JsonProperty(value="tipoSilla")String tipoSilla,
 			@JsonProperty(value="fechaFuncion") String fechaFuncion, @JsonProperty(value="numeroFuncion")Integer numeroFuncion, @JsonProperty(value="nombreEspectaculo")String nombreEspectaculo, @JsonProperty(value="nombreLocalidad") String nombreLocalidad,
 			@JsonProperty(value="cuposDisponibles") Integer cuposDisponibles) {
 		super();
