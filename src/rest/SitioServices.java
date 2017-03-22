@@ -5,11 +5,14 @@ package rest;
 import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
@@ -19,13 +22,13 @@ import vos.ListaSitios;
 @Path("sitios")
 public class SitioServices {
 	/**
-	 * Atributo que usa la anotación @Context para tener el ServletContext de la conexión actual.
+	 * Atributo que usa la anotaciï¿½n @Context para tener el ServletContext de la conexiï¿½n actual.
 	 */
 	@Context
 	private ServletContext context;
 
 	/**
-	 * Método que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy actual dentro del servidor.
+	 * Mï¿½todo que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy actual dentro del servidor.
 	 * @return path de la carpeta WEB-INF/ConnectionData en el deploy actual.
 	 */
 	private String getPath() {
@@ -46,6 +49,8 @@ public class SitioServices {
 	
 	@GET
 	@Path("/{nombre}/{criterio}/{orden}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response consultarSitio(@PathParam("nombre")String nombre, @PathParam("criterio")String criterio, @PathParam("orden")String orden) 
 	{
 		ListaSitios lista = null; 
