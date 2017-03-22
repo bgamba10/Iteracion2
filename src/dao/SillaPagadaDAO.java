@@ -79,7 +79,7 @@ public class SillaPagadaDAO {
 			LOCID = rscap.getString("LOC_ID");
 		}
 		
-		String sq = "SELECT COUNT (*) as cuenta FROM ISIS2304A131720.SILLA_PAGADA WHERE LOC_ID ="+LOCID;
+		String sq = "SELECT COUNT (*) as cuenta FROM ISIS2304A131720.SILLA_PAGADA WHERE LOC_ID ="+LOCID + "AND FUN_ID = "+ numFuncion;
 
 		PreparedStatement prepStmtcap123 = conn.prepareStatement(sq);
 		recursos.add(prepStmtcap123);
@@ -103,6 +103,9 @@ public class SillaPagadaDAO {
 			capacidad = rscap1234.getInt("cuenta");
 		}
 		disponibles = capacidad - vendidas; 
+		
+		System.out.println(disponibles);
+		
 		if(disponibles > 0)
 		{
 			String sqle = "SELECT ESP_ID FROM ISIS2304A131720.ESPECTACULO WHERE ESP_NOMBRE = '" + espectaculo + "'";
@@ -208,7 +211,7 @@ public class SillaPagadaDAO {
 						else 
 						{
 							// valida que este la silla no este pagada.
-							String sql3 = "SELECT PAG_ID FROM ISIS2304A131720.SILLA_PAGADA WHERE PAG_FILA = '" + fila + "' AND PAG_COLUMNA = " + columna + "";
+							String sql3 = "SELECT PAG_ID FROM ISIS2304A131720.SILLA_PAGADA WHERE PAG_FILA = '" + fila + "' AND PAG_COLUMNA = " + columna + " AND FUN_ID = " + numFuncion;
 
 							PreparedStatement prepStmt3 = conn.prepareStatement(sql3);
 							recursos.add(prepStmt3);
@@ -236,7 +239,7 @@ public class SillaPagadaDAO {
 								prepStmt.executeQuery();
 
 								//PAG ID ? 
-								String sql4 = "SELECT PAG_ID FROM ISIS2304A131720.SILLA_PAGADA WHERE PAG_FILA = '" + fila + "' AND PAG_COLUMNA = " + columna + "";
+								String sql4 = "SELECT PAG_ID FROM ISIS2304A131720.SILLA_PAGADA WHERE PAG_FILA = '" + fila + "' AND PAG_COLUMNA = " + columna + " AND FUN_ID = " + numFuncion;
 
 								PreparedStatement prepStmt4 = conn.prepareStatement(sql4);
 								recursos.add(prepStmt4);
@@ -272,7 +275,7 @@ public class SillaPagadaDAO {
 				}
 				else 
 				{
-					System.out.println("Se hara el registro como usuario con el correo"+ correo );
+					System.out.println("Se hara el registro como usuario con el correo: "+ correo );
 
 					String sql1 = "SELECT USU_ID FROM ISIS2304A131720.USUARIO WHERE USU_CORREO = '" + correo + "' AND USU_CONTRASENA = '" + contrasena + "' AND ROL_ID ="+ 2;
 

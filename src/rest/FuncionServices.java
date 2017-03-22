@@ -28,13 +28,13 @@ public class FuncionServices {
 
 
 	/**
-	 * Atributo que usa la anotación @Context para tener el ServletContext de la conexión actual.
+	 * Atributo que usa la anotaciï¿½n @Context para tener el ServletContext de la conexiï¿½n actual.
 	 */
 	@Context
 	private ServletContext context;
 
 	/**
-	 * Método que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy actual dentro del servidor.
+	 * Mï¿½todo que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy actual dentro del servidor.
 	 * @return path de la carpeta WEB-INF/ConnectionData en el deploy actual.
 	 */
 	private String getPath() {
@@ -55,7 +55,7 @@ public class FuncionServices {
 	}
 
 	/**
-	 * Método que expone servicio REST usando PUT que agrega los videos que recibe en Json
+	 * Mï¿½todo que expone servicio REST usando PUT que agrega los videos que recibe en Json
 	 * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/videos
 	 * @param videos - videos a agregar. 
 	 * @return Json con el video que agrego o Json con el error que se produjo
@@ -69,7 +69,7 @@ public class FuncionServices {
 	}
 
 	/**
-	 * Método que expone servicio REST usando GET que da todos los videos de la base de datos.
+	 * Mï¿½todo que expone servicio REST usando GET que da todos los videos de la base de datos.
 	 * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos
 	 * @return Json con todos los videos de la base de datos O json con 
      * el error que se produjo
@@ -78,9 +78,12 @@ public class FuncionServices {
 	@Path("/consulta")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVideos(FuncionEspectaculo fe) {
+	public Response getVideos(FuncionEspectaculo fe) 
+	{
 		FestivAndesMaster fm = new FestivAndesMaster(getPath());
+		
 		ListaFuncionEspectaculo lista = null;
+		
 		try {
 			lista = fm.funcionesEspectaculo(fe);
 		} catch (SQLException e) {
