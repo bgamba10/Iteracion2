@@ -79,7 +79,7 @@ public class SillaPagadaDAO {
 			LOCID = rscap.getString("LOC_ID");
 		}
 		
-		String sq = "SELECT COUNT (*) as cuenta FROM ISIS2304A131720.SILLA_PAGADA_LOCALIDAD WHERE LOC_ID ="+LOCID;
+		String sq = "SELECT COUNT (*) as cuenta FROM ISIS2304A131720.SILLA_PAGADA WHERE LOC_ID ="+LOCID;
 
 		PreparedStatement prepStmtcap123 = conn.prepareStatement(sq);
 		recursos.add(prepStmtcap123);
@@ -193,9 +193,10 @@ public class SillaPagadaDAO {
 						{
 							System.out.println("no se ha pagado la sila!!! congrats");
 
-							String fecha = new SimpleDateFormat("MM-dd-yy").format(new Date());
+							java.sql.Date fechaActual = new java.sql.Date(System.currentTimeMillis());
+							String fechaA = "to_date('"+ fechaActual +"','YYYY-MM-DD')";
 
-							String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, "+ null+ ", "+ null+ ", " + fecha + ", "+usuID+")"; 
+							String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, "+ null+ ", "+ null+ ", " + fechaA + ", " + usuID + ")"; 
 
 							System.out.println("SQL stmt:" + sql);
 							PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -203,7 +204,7 @@ public class SillaPagadaDAO {
 							prepStmt.executeQuery();
 
 							//PAG ID ? 
-							String sql4 = "SELECT PAG_ID FROM ISIS2304A131720.SILLA_PAGADA WHERE USU_ID = '" + usuID + "' AND PAG_FECHA_PAGO = " + fecha + "";
+							String sql4 = "SELECT PAG_ID FROM ISIS2304A131720.SILLA_PAGADA WHERE USU_ID = '" + usuID + "' AND PAG_FECHA_PAGO = " + fechaActual + "";
 
 							PreparedStatement prepStmt4 = conn.prepareStatement(sql4);
 							recursos.add(prepStmt4);
@@ -217,19 +218,13 @@ public class SillaPagadaDAO {
 							//
 
 
-							String sqlxd = "INSERT INTO ISIS2304A131720.SILLA_PAGADA_LOCALIDAD (PAG_ID, LOC_ID) VALUES ( "+pagID+"," +LOCID+ ")"; 
+							String sqlxd = "UPDATE ISIS2304A131720.SILLA_PAGADA SET LOC_ID = " + LOCID + ", FUN_ID =  " + funID + " WHERE PAG_ID = " + pagID;
 
 							System.out.println("SQL stmt:" + sqlxd);
 							PreparedStatement prepStmtxd = conn.prepareStatement(sqlxd);
 							recursos.add(prepStmtxd);
 							prepStmtxd.executeQuery();
 							
-							String sqlxd1 = "INSERT INTO ISIS2304A131720.SILLA_PAGADA_FUNCION (PAG_ID, FUN_ID) VALUES ( "+pagID+"," +funID+ ")"; 
-
-							System.out.println("SQL stmt:" + sqlxd1);
-							PreparedStatement prepStmtxd1 = conn.prepareStatement(sqlxd1);
-							recursos.add(prepStmtxd1);
-							prepStmtxd1.executeQuery();
 						}
 						// caso hay una silla
 						else 
@@ -248,9 +243,14 @@ public class SillaPagadaDAO {
 
 							if (pagID == null)
 							{
-								System.out.println("no se ha pagado la sila!!! congrats");
+								System.out.println("No se ha pagado la sila aún!!! Congrats!!!");
 
-								String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, '"+ fila + "', "+ columna + ", " + new SimpleDateFormat("MM-dd-yy").format(new Date()) + ", "+usuID+")"; 
+								
+								java.sql.Date fechaActual = new java.sql.Date(System.currentTimeMillis());
+								String fechaA = "to_date('"+ fechaActual +"','YYYY-MM-DD')";
+								
+								
+								String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, '"+ fila + "', "+ columna + ", " + fechaA + ", "+usuID+")"; 
 
 								System.out.println("SQL stmt:" + sql);
 								PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -272,19 +272,13 @@ public class SillaPagadaDAO {
 								//
 
 
-								String sqlxd = "INSERT INTO ISIS2304A131720.SILLA_PAGADA_LOCALIDAD (PAG_ID, LOC_ID) VALUES ( "+pagID+"," +LOCID+ ")"; 
+								String sqlxd = "UPDATE ISIS2304A131720.SILLA_PAGADA SET LOC_ID = " + LOCID + ", FUN_ID =  " + funID + " WHERE PAG_ID = " + pagID; 
 
 								System.out.println("SQL stmt:" + sqlxd);
 								PreparedStatement prepStmtxd = conn.prepareStatement(sqlxd);
 								recursos.add(prepStmtxd);
 								prepStmtxd.executeQuery();
 
-								String sqlxd1 = "INSERT INTO ISIS2304A131720.SILLA_PAGADA_FUNCION (PAG_ID, FUN_ID) VALUES ( "+pagID+"," +funID+ ")"; 
-
-								System.out.println("SQL stmt:" + sqlxd1);
-								PreparedStatement prepStmtxd1 = conn.prepareStatement(sqlxd1);
-								recursos.add(prepStmtxd1);
-								prepStmtxd1.executeQuery();
 							}
 							else 
 							{
@@ -300,7 +294,7 @@ public class SillaPagadaDAO {
 		}
 		else 
 		{
-			System.out.println("no hay cupo disponible");
+			System.out.println("No hay cupo disponible");
 		}
 		
 	}
