@@ -57,7 +57,7 @@ public class SitioDAO {
 		// TODO Auto-generated method stub
 		ArrayList<Sitio> lista = new ArrayList<Sitio>(); 
 
-		String sql = "SELECT ci.ciu_nombre as nombreCiudad, si.sit_nombre as nombresitio, si.sit_abierto as abierto, si.sit_capacidad as capacidad, s.sil_nombre as tipoSilla, fe.fun_fecha as fechaFuncion, fe.fun_id as numeroFuncion, esp.esp_nombre as nombreEspectaculo, loc.loc_nombre as nombreLocalidad,loc.loc_id as idLocalidad"
+		String sql = "SELECT ci.ciu_nombre as nombreCiudad, si.sit_nombre as nombresitio, si.sit_abierto as abierto, si.sit_capacidad as capacidad, s.sil_nombre as tipoSilla, fe.fun_fecha as fechaFuncion, fe.fun_id as numeroFuncion, esp.esp_nombre as nombreEspectaculo, loc.loc_nombre as nombreLocalidad,loc.loc_id as idLocalidad, loc.loc_precio as precio"
 				+ " FROM ISIS2304A131720.SITIO si,"
 				+ " ISIS2304A131720.CIUDAD ci,"
 				+ " ISIS2304A131720.TIPO_SILLA s,"
@@ -95,8 +95,10 @@ public class SitioDAO {
 			String nombreEspectaculo = rs.getString("nombreEspectaculo"); 
 			String nombreLocalidad = rs.getString("nombreLocalidad"); 
 			Integer idLocalidad = rs.getInt("idLocalidad"); 
+			Integer precio = rs.getInt("precio"); 
+			System.out.println(precio);
 
-			String sq = "SELECT COUNT (*) as cuenta FROM ISIS2304A131720.SILLA_PAGADA WHERE LOC_ID ="+idLocalidad + "AND FUN_ID = "+ numeroFuncion;
+			String sq = "SELECT COUNT (*) as cuenta FROM ISIS2304A131720.SILLA_PAGADA WHERE LOC_ID ="+idLocalidad + " AND FUN_ID = "+ numeroFuncion;
 			System.out.println(sq);
 			PreparedStatement prepStmtcap123 = conn.prepareStatement(sq);
 			recursos.add(prepStmtcap123);
@@ -114,7 +116,7 @@ public class SitioDAO {
 			Boolean abierto = false; 
 			if (abiertoNum == 1) abierto = true; 
 
-			lista.add(new Sitio(nombreCiudad, abierto, capacidad, tipoSilla, fechaFuncion, numeroFuncion, nombreEspectaculo, nombreLocalidad, cuposDisponibles));
+			lista.add(new Sitio(nombreCiudad, abierto, capacidad, tipoSilla, fechaFuncion, numeroFuncion, nombreEspectaculo, nombreLocalidad, cuposDisponibles, precio));
 		}
 
 		return lista;

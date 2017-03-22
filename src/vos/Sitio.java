@@ -32,10 +32,16 @@ public class Sitio {
 	
 	@JsonProperty(value="cuposDisponibles")
 	private Integer cuposDisponibles;
+	
+	
+
+	@JsonProperty(value="precio")
+	private Integer precio;
+	
 
 	public Sitio(@JsonProperty(value="nombreCiudad") String nombreCiudad, @JsonProperty(value="abierto") Boolean abierto, @JsonProperty(value="capacidad")Integer capacidad, @JsonProperty(value="tipoSilla")String tipoSilla,
 			@JsonProperty(value="fechaFuncion") String fechaFuncion, @JsonProperty(value="numeroFuncion")Integer numeroFuncion, @JsonProperty(value="nombreEspectaculo")String nombreEspectaculo, @JsonProperty(value="nombreLocalidad") String nombreLocalidad,
-			@JsonProperty(value="cuposDisponibles") Integer cuposDisponibles) {
+			@JsonProperty(value="cuposDisponibles") Integer cuposDisponibles, @JsonProperty(value="precio") Integer precio) {
 		super();
 		this.nombreCiudad = nombreCiudad;
 		
@@ -47,6 +53,7 @@ public class Sitio {
 		this.nombreEspectaculo = nombreEspectaculo;
 		this.nombreLocalidad = nombreLocalidad;
 		this.cuposDisponibles = cuposDisponibles;
+		this.precio = precio; 
 	}
 
 	public String getNombreCiudad() {
@@ -121,7 +128,13 @@ public class Sitio {
 	public void setCuposDisponibles(Integer cuposDisponibles) {
 		this.cuposDisponibles = cuposDisponibles;
 	}
+	public Integer getPrecio() {
+		return precio;
+	}
 
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
+	}
 	
 	
 
