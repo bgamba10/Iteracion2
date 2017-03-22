@@ -51,13 +51,13 @@ public class SitioDAO {
 	public void setConn(Connection con){
 		this.conn = con;
 	}
-	
-	
+
+
 	public ArrayList<Sitio> consultarSitio(String nombre, String criterio, String orden) throws SQLException {
 		// TODO Auto-generated method stub
 		ArrayList<Sitio> lista = new ArrayList<Sitio>(); 
-		
-		String sql = "SELECT ci.ciu_nombre as nombreCiudad, si.sit_nombre as nombresitio, si.sit_abierto as abierto, si.sit_capacidad as capacidad, s.sil_nombre as tipoSilla, fe.fun_fecha as fechaFuncion, fe.fun_id as numeroFuncion, esp.esp_nombre as nombreEspectaculo, loc.loc_nombre as nombreLocalidad"
+
+		String sql = "SELECT ci.ciu_nombre as nombreCiudad, si.sit_nombre as nombresitio, si.sit_abierto as abierto, si.sit_capacidad as capacidad, s.sil_nombre as tipoSilla, fe.fun_fecha as fechaFuncion, fe.fun_id as numeroFuncion, esp.esp_nombre as nombreEspectaculo, loc.loc_nombre as nombreLocalidad,loc.loc_id as idLocalidad"
 				+ " FROM ISIS2304A131720.SITIO si,"
 				+ " ISIS2304A131720.CIUDAD ci,"
 				+ " ISIS2304A131720.TIPO_SILLA s,"
@@ -73,18 +73,18 @@ public class SitioDAO {
 				+ " AND fe.ESP_ID    = esp.ESP_ID"
 				+ " AND fe.SIT_ID    =si.SIT_ID"
 				+ " AND si.SIT_ID   =sl.SIT_ID"
-				
+
 				+ " AND ci.CIU_ID   =si.CIU_ID AND si.sit_nombre='"+nombre+"'"
 				+ " order by "+criterio+","+orden;
-		
+
 		System.out.println(sql);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
-		
-		
+
+
 		while (rs.next()) {
-			
+
 			String nombreCiudad = rs.getString("nombreCiudad");
 			// String nombreSitio = rs.getString("nombreSitio");
 			Integer abiertoNum = rs.getInt("abierto"); 
@@ -94,15 +94,29 @@ public class SitioDAO {
 			Integer numeroFuncion = rs.getInt("numeroFuncion"); 
 			String nombreEspectaculo = rs.getString("nombreEspectaculo"); 
 			String nombreLocalidad = rs.getString("nombreLocalidad"); 
-			Integer cuposDisponibles = 0;
-			
-			
+			Integer idLocalidad = rs.getInt("idLocalidad"); 
+
+			String sq = "SELECT COUNT (*) as cuenta FROM ISIS2304A131720.SILLA_PAGADA WHERE LOC_ID ="+idLocalidad + "AND FUN_ID = "+ numeroFuncion;
+			System.out.println(sq);
+			PreparedStatement prepStmtcap123 = conn.prepareStatement(sq);
+			recursos.add(prepStmtcap123);
+			ResultSet rscap123 = prepStmtcap123.executeQuery();
+
+			Integer vendidas=0;
+			while(rscap123.next())
+			{
+				vendidas = rscap123.getInt("cuenta");
+			}
+
+			Integer cuposDisponibles = capacidad - vendidas;
+			System.out.println("cupos..." +cuposDisponibles);
+
 			Boolean abierto = false; 
 			if (abiertoNum == 1) abierto = true; 
-			
-			lista.add(new Sitio(nombre, abierto, capacidad, tipoSilla, fechaFuncion, numeroFuncion, nombreEspectaculo, nombreLocalidad, cuposDisponibles));
+
+			lista.add(new Sitio(nombreCiudad, abierto, capacidad, tipoSilla, fechaFuncion, numeroFuncion, nombreEspectaculo, nombreLocalidad, cuposDisponibles));
 		}
-		
+
 		return lista;
 	}
 

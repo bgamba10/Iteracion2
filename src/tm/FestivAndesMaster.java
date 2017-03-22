@@ -260,7 +260,7 @@ public class FestivAndesMaster {
 				throw exception;
 			}
 		}
-		return new ListaSitios(lista, nombre);
+		return new ListaSitios(nombre, lista);
 	}
 
 }

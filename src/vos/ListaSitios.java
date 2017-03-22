@@ -13,7 +13,7 @@ public class ListaSitios {
 	@JsonProperty(value="lista")
 	private List<Sitio> lista;
 
-	public ListaSitios(@JsonProperty(value="lista")List<Sitio> lista,@JsonProperty(value="nombreSitio")String nombreSitio) {
+	public ListaSitios(@JsonProperty(value="nombreSitio")String nombreSitio,@JsonProperty(value="lista")List<Sitio> lista) {
 		super();
 		this.lista = lista;
 		this.nombreSitio = nombreSitio; 
