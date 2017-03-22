@@ -25,12 +25,12 @@ import vos.UsuarioPreferencia;
 public class FestivAndesMaster {
 
 	/**
-	 * Atributo estático que contiene el path relativo del archivo que tiene los datos de la conexión
+	 * Atributo estï¿½tico que contiene el path relativo del archivo que tiene los datos de la conexiï¿½n
 	 */
 	private static final String CONNECTION_DATA_FILE_NAME_REMOTE = "/conexion.properties";
 
 	/**
-	 * Atributo estático que contiene el path absoluto del archivo que tiene los datos de la conexión
+	 * Atributo estï¿½tico que contiene el path absoluto del archivo que tiene los datos de la conexiï¿½n
 	 */
 	private  String connectionDataPath;
 
@@ -55,16 +55,16 @@ public class FestivAndesMaster {
 	private String driver;
 
 	/**
-	 * Conexión a la base de datos
+	 * Conexiï¿½n a la base de datos
 	 */
 	private Connection conn;
 
 
 	/**
-	 * Método constructor de la clase VideoAndesMaster, esta clase modela y contiene cada una de las 
+	 * Mï¿½todo constructor de la clase VideoAndesMaster, esta clase modela y contiene cada una de las 
 	 * transacciones y la logia de negocios que estas conllevan.
-	 * <b>post: </b> Se crea el objeto VideoAndesMaster, se inicializa el path absoluto de el archivo de conexión y se
-	 * inicializa los atributos que se usan par la conexión a la base de datos.
+	 * <b>post: </b> Se crea el objeto VideoAndesMaster, se inicializa el path absoluto de el archivo de conexiï¿½n y se
+	 * inicializa los atributos que se usan par la conexiï¿½n a la base de datos.
 	 * @param contextPathP - path absoluto en el servidor del contexto del deploy actual
 	 */
 	public FestivAndesMaster(String contextPathP) {
@@ -74,8 +74,8 @@ public class FestivAndesMaster {
 	}
 
 	/*
-	 * Método que  inicializa los atributos que se usan para la conexion a la base de datos.
-	 * <b>post: </b> Se han inicializado los atributos que se usan par la conexión a la base de datos.
+	 * Mï¿½todo que  inicializa los atributos que se usan para la conexion a la base de datos.
+	 * <b>post: </b> Se han inicializado los atributos que se usan par la conexiï¿½n a la base de datos.
 	 */
 	private void initConnectionData() {
 		try {
@@ -95,9 +95,9 @@ public class FestivAndesMaster {
 	}
 
 	/**
-	 * Método que  retorna la conexión a la base de datos
-	 * @return Connection - la conexión a la base de datos
-	 * @throws SQLException - Cualquier error que se genere durante la conexión a la base de datos
+	 * Mï¿½todo que  retorna la conexiï¿½n a la base de datos
+	 * @return Connection - la conexiï¿½n a la base de datos
+	 * @throws SQLException - Cualquier error que se genere durante la conexiï¿½n a la base de datos
 	 */
 	private Connection darConexion() throws SQLException {
 		System.out.println("Connecting to: " + url + " With user: " + user);
@@ -260,7 +260,7 @@ public class FestivAndesMaster {
 				throw exception;
 			}
 		}
-		return new ListaSitios(lista);
+		return new ListaSitios(lista, nombre);
 	}
 
 }

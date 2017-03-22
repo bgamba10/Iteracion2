@@ -57,7 +57,7 @@ public class SitioDAO {
 		// TODO Auto-generated method stub
 		ArrayList<Sitio> lista = new ArrayList<Sitio>(); 
 		
-		String sql = "SELECT ci.ciu_nombre as nombreCiudad, si.sit_nombre as nombresitio, si.sit_abierto as abierto, si.sit_capacidad as capacidad, s.sil_nombre as tipoSilla, fe.fun_fecha as fechaFuncion, fe.fun_id as numeroFuncion, esp.esp_nombre as nombreEspectaculo, loc.loc_nombre as nombreLocalidad, loc.loc_disponibles as cuposDisponibles"
+		String sql = "SELECT ci.ciu_nombre as nombreCiudad, si.sit_nombre as nombresitio, si.sit_abierto as abierto, si.sit_capacidad as capacidad, s.sil_nombre as tipoSilla, fe.fun_fecha as fechaFuncion, fe.fun_id as numeroFuncion, esp.esp_nombre as nombreEspectaculo, loc.loc_nombre as nombreLocalidad"
 				+ " FROM ISIS2304A131720.SITIO si,"
 				+ " ISIS2304A131720.CIUDAD ci,"
 				+ " ISIS2304A131720.TIPO_SILLA s,"
@@ -73,7 +73,7 @@ public class SitioDAO {
 				+ " AND fe.ESP_ID    = esp.ESP_ID"
 				+ " AND fe.SIT_ID    =si.SIT_ID"
 				+ " AND si.SIT_ID   =sl.SIT_ID"
-				+ " AND loc.LOC_ID  =sl.LOC_ID"
+				
 				+ " AND ci.CIU_ID   =si.CIU_ID AND si.sit_nombre='"+nombre+"'"
 				+ " order by "+criterio+","+orden;
 		
@@ -86,13 +86,13 @@ public class SitioDAO {
 		while (rs.next()) {
 			
 			String nombreCiudad = rs.getString("nombreCiudad");
-			String nombreSitio = rs.getString("nombreSitio");
+			// String nombreSitio = rs.getString("nombreSitio");
 			Integer abiertoNum = rs.getInt("abierto"); 
 			Integer capacidad = rs.getInt("capacidad");
 			String tipoSilla = rs.getString("tipoSilla"); 
 			String fechaFuncion = rs.getString("fechaFuncion");
 			Integer numeroFuncion = rs.getInt("numeroFuncion"); 
-			String nombreEspectaculo = rs.getString("nombreEspectacuo"); 
+			String nombreEspectaculo = rs.getString("nombreEspectaculo"); 
 			String nombreLocalidad = rs.getString("nombreLocalidad"); 
 			Integer cuposDisponibles = 0;
 			
@@ -100,7 +100,7 @@ public class SitioDAO {
 			Boolean abierto = false; 
 			if (abiertoNum == 1) abierto = true; 
 			
-			lista.add(new Sitio(nombre, nombreSitio, abierto, capacidad, tipoSilla, fechaFuncion, numeroFuncion, nombreEspectaculo, nombreLocalidad, cuposDisponibles));
+			lista.add(new Sitio(nombre, abierto, capacidad, tipoSilla, fechaFuncion, numeroFuncion, nombreEspectaculo, nombreLocalidad, cuposDisponibles));
 		}
 		
 		return lista;
