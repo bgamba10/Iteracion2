@@ -7,8 +7,7 @@ public class Sitio {
 	@JsonProperty(value="nombreCiudad")
 	private String nombreCiudad; 
 	
-	@JsonProperty(value="nombreSitio")
-	private String nombreSitio; 
+	
 	
 	@JsonProperty(value="abierto")
 	private Boolean abierto; 
@@ -39,7 +38,7 @@ public class Sitio {
 			@JsonProperty(value="cuposDisponibles") Integer cuposDisponibles) {
 		super();
 		this.nombreCiudad = nombreCiudad;
-		this.nombreSitio = nombreSitio;
+		
 		this.abierto = abierto;
 		this.capacidad = capacidad;
 		this.tipoSilla = tipoSilla;
@@ -58,13 +57,6 @@ public class Sitio {
 		this.nombreCiudad = nombreCiudad;
 	}
 
-	public String getNombreSitio() {
-		return nombreSitio;
-	}
-
-	public void setNombreSitio(String nombreSitio) {
-		this.nombreSitio = nombreSitio;
-	}
 
 	public Boolean getAbierto() {
 		return abierto;
