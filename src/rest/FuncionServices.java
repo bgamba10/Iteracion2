@@ -17,8 +17,8 @@ import javax.ws.rs.core.Response;
 
 import tm.FestivAndesMaster;
 import vos.Funcion;
+import vos.FuncionEspectaculoR;
 import vos.FuncionEspectaculo;
-import vos.ListaFuncionEspectaculo;
 
 @Path("funciones")
 public class FuncionServices {
@@ -78,11 +78,11 @@ public class FuncionServices {
 	@Path("/consulta")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getVideos(FuncionEspectaculo fe) 
+	public Response getVideos(FuncionEspectaculoR fe) 
 	{
 		FestivAndesMaster fm = new FestivAndesMaster(getPath());
 		
-		ListaFuncionEspectaculo lista = null;
+		FuncionEspectaculo lista = null;
 		
 		try {
 			lista = fm.funcionesEspectaculo(fe);
