@@ -60,7 +60,8 @@ public class FuncionEspectaculoDAO {
 	{
 		ArrayList<FuncionEspectaculoR> lista = new ArrayList<FuncionEspectaculoR>();
 
-		Integer disponibilidad = fe.getDisponibilidad();
+		Boolean disponibilidad = fe.getDisponibilidad();
+		System.out.println(disponibilidad);
 		Integer numeroFuncion = fe.getNumeroFuncion();
 		Date fechaInicial = fe.getFechaInicial();
 		Date fechaFinal = fe.getFechaFinal();
@@ -80,8 +81,9 @@ public class FuncionEspectaculoDAO {
 				+ "nec.nec_nombre  AS restriccion,"
 				+ "esp.esp_nombre  AS nombreEspectaculo,"
 				+ "idi.IDI_NOMBRE  AS idioma,"
-				+ "LISTAGG(cat.CON_NOMBRE, ', ') within group (order by cat.CON_NOMBRE) OVER (PARTITION BY fun.fun_id) AS categoria,"
-				+ "loc.loc_disponibles AS disponibles "
+				+ "esp.esp_traductor as disponibilidad, "
+				+ "LISTAGG(cat.CON_NOMBRE, ', ') within group (order by cat.CON_NOMBRE) OVER (PARTITION BY fun.fun_id) AS categoria "
+			
 				+ "FROM ISIS2304A131720.COMPANIA comp,"
 				+ "ISIS2304A131720.ESPECTACULO_COMPANIA escomp,"
 				+ "ISIS2304A131720.CATEGORIA cat,"
@@ -106,17 +108,20 @@ public class FuncionEspectaculoDAO {
 				+ "AND loc.LOC_ID    = sl.LOC_ID "
 				+ "AND sl.SIT_ID     = sit.SIT_ID ";
 
-		if(disponibilidad != null && disponibilidad != 0)
-		{
-			sql += "AND loc.LOC_DISPONIBLES > " +  disponibilidad;
-		}
+		
 		if(numeroFuncion != null  && numeroFuncion != 0)
 		{
 			sql += "AND fun.FUN_ID = " + numeroFuncion;
 		}
 		if(fechaInicial != null && fechaFinal != null)
 		{
-			sql += "AND fun.FUN_FECHA BETWEEN '" + fechaInicial + "' AND '" + fechaFinal + "'";
+			Date fechaI = new Date(2016, 02, 11);
+			Date fechaF = new Date(2015, 01, 11); 
+			
+			String fechaA = "to_date('"+ fechaI +"','YYYY-MM-DD')";
+			String fechaB = "to_date('"+ fechaI +"','YYYY-MM-DD')";
+			
+			sql += "AND fun.FUN_FECHA BETWEEN '" + fechaA + "' AND '" + fechaB + "'";
 		}
 		if(categoria != null)
 		{
@@ -138,6 +143,11 @@ public class FuncionEspectaculoDAO {
 		{
 			sql += "AND fun.fun_fecha = '" + fechaFuncion + "'";
 		}
+		
+		if(disponibilidad == true)
+		{
+			sql += "AND esp.esp_traductor = 1";
+		}
 
 
 		System.out.println("SQL stmt:" + sql);
@@ -157,9 +167,11 @@ public class FuncionEspectaculoDAO {
 			String nombreEspectaculo1 = rs.getString("NOMBREESPECTACULO");
 			String idioma1 = rs.getString("IDIOMA");
 			String categoria1 = rs.getString("CATEGORIA");
-			int disponibles1 = rs.getInt("DISPONIBLES");
+			int disponibles1 = rs.getInt("disponibilidad");
+			disponibilidad = false;
+			 if (disponibles1 == 1 ) disponibilidad= true; 
 
-			lista.add(new FuncionEspectaculoR(fechaInicial, fechaFinal, compania1, categoria1, idioma1, disponibles1, restriccion1, numeroFuncion1, nombreEspectaculo1, fechaFuncion1));
+			lista.add(new FuncionEspectaculoR(fechaInicial, fechaFinal, compania1, categoria1, idioma1, disponibilidad, restriccion1, numeroFuncion1, nombreEspectaculo1, fechaFuncion1));
 
 
 		}
