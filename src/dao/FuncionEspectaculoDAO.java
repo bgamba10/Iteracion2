@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-import vos.FuncionEspectaculo;
+import vos.FuncionDetail;
+import vos.FuncionEspectaculoR;
+import vos.SitioFuncion;
 
 
 public class FuncionEspectaculoDAO {
@@ -53,9 +56,9 @@ public class FuncionEspectaculoDAO {
 		this.conn = con;
 	}
 
-	public ArrayList<FuncionEspectaculo> getFuncionEspectaculo(FuncionEspectaculo fe) throws SQLException 
+	public ArrayList<FuncionEspectaculoR> getFuncionEspectaculo(FuncionEspectaculoR fe) throws SQLException 
 	{
-		ArrayList<FuncionEspectaculo> lista = new ArrayList<FuncionEspectaculo>();
+		ArrayList<FuncionEspectaculoR> lista = new ArrayList<FuncionEspectaculoR>();
 
 		Integer disponibilidad = fe.getDisponibilidad();
 		Integer numeroFuncion = fe.getNumeroFuncion();
@@ -153,12 +156,65 @@ public class FuncionEspectaculoDAO {
 			String categoria1 = rs.getString("CATEGORIA");
 			int disponibles1 = rs.getInt("DISPONIBLES");
 
-			lista.add(new FuncionEspectaculo(fechaInicial, fechaFinal, compania1, categoria1, idioma1, disponibles1, restriccion1, numeroFuncion1, nombreEspectaculo1, fechaFuncion1));
+			lista.add(new FuncionEspectaculoR(fechaInicial, fechaFinal, compania1, categoria1, idioma1, disponibles1, restriccion1, numeroFuncion1, nombreEspectaculo1, fechaFuncion1));
 
 
 		}
 
 		return lista;
+	}
+	
+	public ArrayList<SitioFuncion> reporte(String nombreEspectaculo) throws SQLException
+	{
+		ArrayList<SitioFuncion> lista = new ArrayList<>(); 
+		String sql ="select sit.SIT_NOMBRE as nombreSitio, sit.sit_id as numSitio, sit.sit_capacidad numCapacidad"
+		+ " from ISIS2304A131720.SITIO sit, ISIS2304A131720.funcion fun, ISIS2304A131720.espectaculo esp"
+		+ " where sit.sit_id = fun.SIT_ID AND fun.ESP_ID = esp.esp_id AND esp.esp_nombre = '"+nombreEspectaculo+"'";
+		
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		
+		while (rs.next())
+		{
+			String nombreSitio = rs.getString("nombreSitio"); 
+			Integer numSitio = rs.getInt("numSitio"); 
+			Integer capacidad = rs.getInt("numCapacidad"); 
+			
+			List<FuncionDetail> funciones = new ArrayList<FuncionDetail>(); 
+			
+			String sql1 ="select fun.FUN_ID as numFuncion"
+					+ " from ISIS2304A131720.ESPECTACULO esp, ISIS2304A131720.FUNCION fun"
+					+ " where esp.esp_id = fun.esp_id AND esp.ESP_NOMBRE = '"+nombreEspectaculo+"' AND fun.SIT_ID ="+numSitio;
+			System.out.println("SQL stmt:" + sql1);
+			
+			PreparedStatement prepStmt1 = conn.prepareStatement(sql1);
+			recursos.add(prepStmt1);
+			ResultSet rs1 = prepStmt1.executeQuery();
+			
+			while (rs1.next())
+			{
+				Integer numFuncion = rs1.getInt("numFuncion");
+				String sql2 = "SELECT COUNT (*) as cuenta FROM ISIS2304A131720.SILLA_PAGADA WHERE FUN_ID = "+ numFuncion;
+				PreparedStatement prepStmt2 = conn.prepareStatement(sql2);
+				recursos.add(prepStmt2);
+				ResultSet rs2 = prepStmt2.executeQuery();
+				Integer cuenta = 0; 
+				while (rs2.next())
+				{
+				cuenta = rs2.getInt("cuenta");
+				}
+			
+				Double porcentajeOcupacion = (double) ((cuenta/capacidad)*100);
+				funciones.add(new FuncionDetail(numFuncion, cuenta, porcentajeOcupacion));
+			}
+			lista.add(new SitioFuncion(nombreSitio, funciones));
+		}
+		
+		
+		return lista; 
 	}
 
 }

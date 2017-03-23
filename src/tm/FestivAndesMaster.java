@@ -14,12 +14,14 @@ import dao.SillaPagadaDAO;
 import dao.SitioDAO;
 import dao.UsuarioPreferenciaDAO;
 import vos.Funcion;
+import vos.FuncionEspectaculoR;
 import vos.FuncionEspectaculo;
-import vos.ListaFuncionEspectaculo;
+import vos.ListaSitioFuncion;
 import vos.ListaSitios;
 import vos.ListaVideos;
 import vos.SillaPagada;
 import vos.Sitio;
+import vos.SitioFuncion;
 import vos.UsuarioPreferencia;
 
 public class FestivAndesMaster {
@@ -212,9 +214,9 @@ public class FestivAndesMaster {
 		
 	}
 	
-	public ListaFuncionEspectaculo funcionesEspectaculo(FuncionEspectaculo fe) throws SQLException {
+	public FuncionEspectaculo funcionesEspectaculo(FuncionEspectaculoR fe) throws SQLException {
 		
-		ArrayList<FuncionEspectaculo> lista; 
+		ArrayList<FuncionEspectaculoR> lista; 
 		
 		FuncionEspectaculoDAO dao = new FuncionEspectaculoDAO(); 
 		
@@ -223,7 +225,7 @@ public class FestivAndesMaster {
 		lista = dao.getFuncionEspectaculo(fe); 
 		conn.commit(); 
 		
-		ListaFuncionEspectaculo listaReturn = new ListaFuncionEspectaculo(lista);
+		FuncionEspectaculo listaReturn = new FuncionEspectaculo(lista);
 		
 		return listaReturn;
 }
@@ -261,6 +263,26 @@ public class FestivAndesMaster {
 			}
 		}
 		return new ListaSitios(nombre, lista);
+	}
+
+	public ListaSitioFuncion reporteEspectaculo(String nombreEspectaculo) {
+		// TODO Auto-generated method stub
+		ArrayList<SitioFuncion> lista = null;
+		FuncionEspectaculoDAO dao= new FuncionEspectaculoDAO();
+		try {
+			this.conn = darConexion();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dao.setConn(conn);
+		try {
+			lista = dao.reporte(nombreEspectaculo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ListaSitioFuncion(lista); 
 	}
 
 }
