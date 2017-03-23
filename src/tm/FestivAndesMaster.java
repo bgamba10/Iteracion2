@@ -12,16 +12,26 @@ import dao.FuncionDAO;
 import dao.FuncionEspectaculoDAO;
 import dao.SillaPagadaDAO;
 import dao.SitioDAO;
+import dao.SitioLocalidadDAO;
 import dao.UsuarioPreferenciaDAO;
 import vos.Funcion;
 import vos.FuncionEspectaculoR;
 import vos.FuncionEspectaculo;
+
 import vos.ListaSitioFuncion;
+
+import vos.ListaFuncionEspectaculo;
+import vos.ListaSitioLocalidad;
+
 import vos.ListaSitios;
 import vos.ListaVideos;
 import vos.SillaPagada;
 import vos.Sitio;
+
 import vos.SitioFuncion;
+
+import vos.SitioLocalidad;
+
 import vos.UsuarioPreferencia;
 
 public class FestivAndesMaster {
@@ -263,6 +273,41 @@ public class FestivAndesMaster {
 			}
 		}
 		return new ListaSitios(nombre, lista);
+	}
+	
+	public ListaSitioLocalidad generarReporteFuncion(int numeroFuncion) throws SQLException 
+	{
+		// TODO Auto-generated method stub
+		ArrayList<SitioLocalidad> lista = null; 
+		SitioLocalidadDAO dao = new SitioLocalidadDAO(); 
+		
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			dao.setConn(conn);
+			lista = dao.generarReporteFuncion(numeroFuncion);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				dao.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaSitioLocalidad(lista);
 	}
 
 	public ListaSitioFuncion reporteEspectaculo(String nombreEspectaculo) {

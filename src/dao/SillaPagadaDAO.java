@@ -4,11 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
-import oracle.sql.DATE;
+import java.util.ArrayList;
+
 import vos.SillaPagada;
 
 public class SillaPagadaDAO {
@@ -177,34 +175,14 @@ public class SillaPagadaDAO {
 							java.sql.Date fechaActual = new java.sql.Date(System.currentTimeMillis());
 							String fechaA = "to_date('"+ fechaActual +"','YYYY-MM-DD')";
 
-							String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, "+ null+ ", "+ null+ ", " + fechaA + ",  null)"; 
-
+							String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID, LOC_ID, FUN_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, '"+ null + "', "+ null + ", " + fechaA + ", null, "+ LOCID+ ", " + funID + ")";
+							
 							System.out.println("SQL stmt:" + sql);
 							PreparedStatement prepStmt = conn.prepareStatement(sql);
 							recursos.add(prepStmt);
 							prepStmt.executeQuery();
 
 							//PAG ID ? 
-							String sql4 = "SELECT PAG_ID FROM ISIS2304A131720.SILLA_PAGADA WHERE USU_ID = null  AND PAG_FILA = null AND PAG_COLUMNA = null AND PAG_FECHA_PAGO = " + fechaActual + "";
-
-							PreparedStatement prepStmt4 = conn.prepareStatement(sql4);
-							recursos.add(prepStmt4);
-							ResultSet rs4 = prepStmt4.executeQuery();
-							Integer pagID = null; 
-
-							while(rs4.next()){
-								pagID = rs4.getInt("PAG_ID");
-							}
-
-							//
-
-
-							String sqlxd = "UPDATE ISIS2304A131720.SILLA_PAGADA SET LOC_ID = " + LOCID + ", FUN_ID =  " + funID + " WHERE PAG_ID = " + pagID;
-
-							System.out.println("SQL stmt:" + sqlxd);
-							PreparedStatement prepStmtxd = conn.prepareStatement(sqlxd);
-							recursos.add(prepStmtxd);
-							prepStmtxd.executeQuery();
 							
 						}
 						// caso hay una silla
@@ -228,10 +206,10 @@ public class SillaPagadaDAO {
 
 								
 								java.sql.Date fechaActual = new java.sql.Date(System.currentTimeMillis());
-								String fechaA = "to_date('"+ fechaActual +"','YYYY-MM-DD')";
+								String fechaA = "to_date('"+ fechaActual +"','YYYY-MM-DD')"; 
 								
 								
-								String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, '"+ fila + "', "+ columna + ", " + fechaA + ", null)"; 
+								String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID, LOC_ID, FUN_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, '"+ fila + "', "+ columna + ", " + fechaA + ", null, "+ LOCID+ ", " + funID + ")"; 
 
 								System.out.println("SQL stmt:" + sql);
 								PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -239,26 +217,7 @@ public class SillaPagadaDAO {
 								prepStmt.executeQuery();
 
 								//PAG ID ? 
-								String sql4 = "SELECT PAG_ID FROM ISIS2304A131720.SILLA_PAGADA WHERE PAG_FILA = '" + fila + "' AND PAG_COLUMNA = " + columna + " AND FUN_ID = " + numFuncion;
 
-								PreparedStatement prepStmt4 = conn.prepareStatement(sql4);
-								recursos.add(prepStmt4);
-								ResultSet rs4 = prepStmt4.executeQuery();
-								pagID = null; 
-
-								while(rs4.next()){
-									pagID = rs4.getInt("PAG_ID");
-								}
-
-								//
-
-
-								String sqlxd = "UPDATE ISIS2304A131720.SILLA_PAGADA SET LOC_ID = " + LOCID + ", FUN_ID =  " + funID + " WHERE PAG_ID = " + pagID; 
-
-								System.out.println("SQL stmt:" + sqlxd);
-								PreparedStatement prepStmtxd = conn.prepareStatement(sqlxd);
-								recursos.add(prepStmtxd);
-								prepStmtxd.executeQuery();
 
 							}
 							else 
@@ -323,34 +282,13 @@ public class SillaPagadaDAO {
 							java.sql.Date fechaActual = new java.sql.Date(System.currentTimeMillis());
 							String fechaA = "to_date('"+ fechaActual +"','YYYY-MM-DD')";
 
-							String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, "+ null+ ", "+ null+ ", " + fechaA + ", " + usuID + ")"; 
-
+							String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID, LOC_ID, FUN_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, '"+ null + "', "+ null + ", " + fechaA + ", " + usuID + ", "+ LOCID+ ", " + funID + ")";
 							System.out.println("SQL stmt:" + sql);
 							PreparedStatement prepStmt = conn.prepareStatement(sql);
 							recursos.add(prepStmt);
 							prepStmt.executeQuery();
 
 							//PAG ID ? 
-							String sql4 = "SELECT PAG_ID FROM ISIS2304A131720.SILLA_PAGADA WHERE USU_ID = '" + usuID + "' AND PAG_FECHA_PAGO = " + fechaActual + "";
-
-							PreparedStatement prepStmt4 = conn.prepareStatement(sql4);
-							recursos.add(prepStmt4);
-							ResultSet rs4 = prepStmt4.executeQuery();
-							Integer pagID = null; 
-
-							while(rs4.next()){
-								pagID = rs4.getInt("PAG_ID");
-							}
-
-							//
-
-
-							String sqlxd = "UPDATE ISIS2304A131720.SILLA_PAGADA SET LOC_ID = " + LOCID + ", FUN_ID =  " + funID + " WHERE PAG_ID = " + pagID;
-
-							System.out.println("SQL stmt:" + sqlxd);
-							PreparedStatement prepStmtxd = conn.prepareStatement(sqlxd);
-							recursos.add(prepStmtxd);
-							prepStmtxd.executeQuery();
 							
 						}
 						// caso hay una silla
@@ -377,34 +315,14 @@ public class SillaPagadaDAO {
 								String fechaA = "to_date('"+ fechaActual +"','YYYY-MM-DD')";
 								
 								
-								String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, '"+ fila + "', "+ columna + ", " + fechaA + ", "+usuID+")"; 
-
+								String sql = "INSERT INTO ISIS2304A131720.SILLA_PAGADA (PAG_ID, PAG_FILA, PAG_COLUMNA, PAG_FECHA_PAGO, USU_ID, LOC_ID, FUN_ID) VALUES ( SQ_SILLA_PAGADA.NEXTVAL, '"+ fila + "', "+ columna + ", " + fechaA + ","+ usuID + ", "+ LOCID+ ", " + funID + ")";
+								
 								System.out.println("SQL stmt:" + sql);
 								PreparedStatement prepStmt = conn.prepareStatement(sql);
 								recursos.add(prepStmt);
 								prepStmt.executeQuery();
 
 								//PAG ID ? 
-								String sql4 = "SELECT PAG_ID FROM ISIS2304A131720.SILLA_PAGADA WHERE PAG_FILA = '" + fila + "' AND PAG_COLUMNA = " + columna + "";
-
-								PreparedStatement prepStmt4 = conn.prepareStatement(sql4);
-								recursos.add(prepStmt4);
-								ResultSet rs4 = prepStmt4.executeQuery();
-								pagID = null; 
-
-								while(rs4.next()){
-									pagID = rs4.getInt("PAG_ID");
-								}
-
-								//
-
-
-								String sqlxd = "UPDATE ISIS2304A131720.SILLA_PAGADA SET LOC_ID = " + LOCID + ", FUN_ID =  " + funID + " WHERE PAG_ID = " + pagID; 
-
-								System.out.println("SQL stmt:" + sqlxd);
-								PreparedStatement prepStmtxd = conn.prepareStatement(sqlxd);
-								recursos.add(prepStmtxd);
-								prepStmtxd.executeQuery();
 
 							}
 							else 

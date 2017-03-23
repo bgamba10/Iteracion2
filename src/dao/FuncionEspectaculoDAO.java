@@ -70,6 +70,9 @@ public class FuncionEspectaculoDAO {
 		String restriccion = fe.getRestriccion();
 		String espectaculo = fe.getEspectaculo();
 		Date fechaFuncion = fe.getFechaFuncion();
+		
+		
+		
 
 		String sql = "SELECT fun.FUN_ID AS numerofuncion, "
 				+ "comp.COM_NOMBRE AS compania,"
