@@ -20,7 +20,7 @@ public class FuncionEspectaculoR {
 	private String idioma; 
 	
 	@JsonProperty(value="disponibilidad")
-	private int disponibilidad;
+	private Boolean disponibilidad;
 	
 	@JsonProperty(value="numeroFuncion")
 	private int numeroFuncion;
@@ -38,7 +38,7 @@ public class FuncionEspectaculoR {
 	
 
 	public FuncionEspectaculoR(@JsonProperty(value="fechaInicial")java.sql.Date fechaInicial, @JsonProperty(value="fechaFinal")java.sql.Date fechaFinal, @JsonProperty(value="compania")String compania, @JsonProperty(value="categoria")String categoria, @JsonProperty(value="idioma")String idioma,
-			@JsonProperty(value="disponibilidad")int disponibilidad,@JsonProperty(value="restriccion") String restriccion, @JsonProperty(value="numeroFuncion") int numeroFuncion, @JsonProperty(value="espectaculo") String espectaculo, @JsonProperty(value="fechaFuncion") java.sql.Date fechaFuncion) {
+			@JsonProperty(value="disponibilidad")Boolean disponibilidad,@JsonProperty(value="restriccion") String restriccion, @JsonProperty(value="numeroFuncion") int numeroFuncion, @JsonProperty(value="espectaculo") String espectaculo, @JsonProperty(value="fechaFuncion") java.sql.Date fechaFuncion) {
 		super();
 		this.fechaInicial = fechaInicial;
 		this.fechaFinal = fechaFinal;
@@ -125,11 +125,11 @@ public class FuncionEspectaculoR {
 		this.idioma = idioma;
 	}
 
-	public int getDisponibilidad() {
+	public Boolean getDisponibilidad() {
 		return disponibilidad;
 	}
 
-	public void setDisponibilidad(int disponibilidad) {
+	public void setDisponibilidad(Boolean disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
 
