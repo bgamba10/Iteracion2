@@ -51,8 +51,30 @@ public class SillaPagadaDAO {
 	public void setConn(Connection con){
 		this.conn = con;
 	}
+	public void agregarSillaPagada (SillaPagada silla) throws Exception{
+		Integer cuantas = silla.getCuantas(); 
+		
+		if (cuantas == null)
+		{
+			agregarSillaPagada1(silla);
+		}
+		
+		else 
+		{
+			Integer colAntes = silla.getColumna(); 
+			silla.setColumna(colAntes-1);
+			
+		for (int i=0; i<cuantas; i++)
+		{
+			SillaPagada s = silla; 
+			Integer col = s.getColumna(); 
+			s.setColumna(col +1);
+			agregarSillaPagada1(s);
+		}
+		}
+	}
 
-	public void agregarSillaPagada(SillaPagada silla ) throws NumberFormatException, SQLException
+	public void agregarSillaPagada1(SillaPagada silla ) throws Exception
 	{
 		String fila = silla.getFila(); 
 		Integer columna = silla.getColumna(); 
@@ -137,6 +159,8 @@ public class SillaPagadaDAO {
 			if (LOCID == null)
 			{
 				System.out.println("No existe esa localidad");
+				throw new Exception("no existe esa localidad"); 
+				
 			}
 			else 
 			{
@@ -160,6 +184,7 @@ public class SillaPagadaDAO {
 					if (funID == null)
 					{
 						System.out.println("No existe esa función o espectáculo"); 
+						throw new Exception("No existe esa función o espectaculo");
 					}
 					
 					
@@ -223,6 +248,7 @@ public class SillaPagadaDAO {
 							else 
 							{
 								System.out.println("Sorry that seat has been taken, better luck next time");
+								throw new Exception("Sorry that seat has been taken, better luck next time"); 
 							}
 							
 							
@@ -328,6 +354,7 @@ public class SillaPagadaDAO {
 							else 
 							{
 								System.out.println("Sorry that seat has been taken, better luck next time");
+								throw new Exception("Sorry that seat has been taken, better luck next time");
 							}
 							
 							
@@ -340,6 +367,7 @@ public class SillaPagadaDAO {
 		else 
 		{
 			System.out.println("No hay cupo disponible");
+			throw new Exception("No hay cupo disponible"); 
 		}
 		
 	}

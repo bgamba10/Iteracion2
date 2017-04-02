@@ -33,9 +33,12 @@ public class SillaPagadaServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void crearPreferencia(SillaPagada up) {
+	public void comparBoleta(SillaPagada up) {
 		FestivAndesMaster fm = new FestivAndesMaster(getPath()); 
 		fm.agregarSillaPagada(up); 
 	}
+	
+	
+	
 	
 }
