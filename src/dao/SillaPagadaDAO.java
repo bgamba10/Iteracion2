@@ -53,7 +53,8 @@ public class SillaPagadaDAO {
 	}
 	public void agregarSillaPagada (SillaPagada silla) throws Exception{
 		Integer cuantas = silla.getCuantas(); 
-		
+		if (silla.getCorreoElectronico() != null)
+		{
 		if (cuantas == null)
 		{
 			agregarSillaPagada1(silla);
@@ -70,6 +71,7 @@ public class SillaPagadaDAO {
 			Integer col = s.getColumna(); 
 			s.setColumna(col +1);
 			agregarSillaPagada1(s);
+		}
 		}
 		}
 	}
@@ -277,6 +279,7 @@ public class SillaPagadaDAO {
 					if(usuID == null)
 					{
 						System.out.println("Usuario y/o contrasena invalidos, o no es cliente...");
+						throw new Exception("Usuario y/o contrasena invalidos, o no es cliente...");
 					}
 
 					String sql2 = "SELECT FUN_ID FROM ISIS2304A131720.FUNCION WHERE FUN_ID = "+ numFuncion + "AND ESP_ID = " +numEspectaculo ;
