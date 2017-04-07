@@ -35,7 +35,15 @@ public class SillaPagadaServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public void comparBoleta(SillaPagada up) {
 		FestivAndesMaster fm = new FestivAndesMaster(getPath()); 
-		fm.agregarSillaPagada(up); 
+		if (up.getSillaEliminar() != null)
+		{
+			fm.eliminarSilla(up); 
+		}
+		else 
+		{
+			fm.agregarSillaPagada(up); 
+		}
+		
 	}
 	
 	

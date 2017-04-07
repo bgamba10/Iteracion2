@@ -374,4 +374,56 @@ public class SillaPagadaDAO {
 		}
 		
 	}
+
+	public void eliminarSilla(SillaPagada up) throws Exception {
+		// TODO Auto-generated method stub
+		String correo = up.getCorreoElectronico(); 
+		String contrasena = up.getContrasena(); 
+		
+		String sql1 = "SELECT USU_ID FROM ISIS2304A131720.USUARIO WHERE USU_CORREO = '" + correo + "' AND USU_CONTRASENA = '" + contrasena + "' AND ROL_ID ="+ 2;
+
+		PreparedStatement prepStmt1 = conn.prepareStatement(sql1);
+		recursos.add(prepStmt1);
+		ResultSet rs1 = prepStmt1.executeQuery();
+
+		String usuID = null;
+
+		while(rs1.next()){
+			usuID = rs1.getString("USU_ID");
+		}
+
+		if(usuID == null)
+		{
+			System.out.println("Usuario y/o contrasena invalidos, o no es cliente...");
+			throw new Exception("Usuario y/o contrasena invalidos, o no es cliente...");
+		}
+		
+		
+		
+		//Se valida que elusuario que quiere eliminar la silla sea el usuario de la silla 
+		String sql = "select pag_id from ISIS2304A131720.SILLA_PAGADA where usu_id = "+usuID+"and pag_id = "+ up.getSillaEliminar();
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		
+		Integer pagId =null; 
+		while(rs.next()){
+			pagId = rs.getInt("PAG_ID");
+		}
+		
+		if (pagId == null)
+		{
+			System.out.println("El usuario que quiere eliminar esa silla no la compro");
+			throw new Exception("El usuario que quiere eliminar esa silla no la compro");
+		}
+		
+		String sql2 = "DELETE FROM ISIS2304A131720.SILLA_PAGADA WHERE PAG_ID = "+up.getSillaEliminar();
+		
+		System.out.println("SQL stmt:" + sql2);
+		PreparedStatement prepStmt2 = conn.prepareStatement(sql2);
+		recursos.add(prepStmt2);
+		prepStmt2.executeQuery();
+	}
 }

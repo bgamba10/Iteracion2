@@ -36,10 +36,13 @@ public class SillaPagada {
 	@JsonProperty(value="cuantas")
 	private Integer cuantas;
 	
+	@JsonProperty(value="sillaEliminar")
+	private Integer sillaEliminar;
+	
 
 	
 	public SillaPagada( @JsonProperty(value="idSillaPagada") int idSillaPagada, @JsonProperty(value="fila") String fila, @JsonProperty(value="columna") int columna, @JsonProperty(value="correoElectronico") String correoElectronico, @JsonProperty(value="contrasena") String contrasena,
-			@JsonProperty(value="fecha") DATE fecha, @JsonProperty(value="localidad") String localidad, @JsonProperty(value="NumeroFuncion") int numFuncion, @JsonProperty(value="espectaculo") String espectaculo, @JsonProperty(value="cuantas") Integer cuantas) {
+			@JsonProperty(value="fecha") DATE fecha, @JsonProperty(value="localidad") String localidad, @JsonProperty(value="NumeroFuncion") int numFuncion, @JsonProperty(value="espectaculo") String espectaculo, @JsonProperty(value="cuantas") Integer cuantas, @JsonProperty(value="sillaEliminar") Integer sillaEliminar) {
 		super();
 		this.idSillaPagada = idSillaPagada;
 		this.fila = fila;
@@ -51,9 +54,20 @@ public class SillaPagada {
 		this.numFuncion = numFuncion;
 		this.espectaculo = espectaculo;
 		this.cuantas = cuantas;
+		this.sillaEliminar = sillaEliminar; 
 	}
 
 	
+	public Integer getSillaEliminar() {
+		return sillaEliminar;
+	}
+
+
+	public void setSillaEliminar(Integer sillaEliminar) {
+		this.sillaEliminar = sillaEliminar;
+	}
+
+
 	public int getNumFuncion() {
 		return numFuncion;
 	}
