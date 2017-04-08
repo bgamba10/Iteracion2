@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import vos.Abonamiento;
 import vos.SillaPagada;
 
 public class SillaPagadaDAO {
@@ -425,5 +427,19 @@ public class SillaPagadaDAO {
 		PreparedStatement prepStmt2 = conn.prepareStatement(sql2);
 		recursos.add(prepStmt2);
 		prepStmt2.executeQuery();
+	}
+
+	public void comprarAbonamiento(Abonamiento abo) throws Exception {
+		// TODO Auto-generated method stub
+		List<SillaPagada> lista = new ArrayList<>(); 
+		
+		for (SillaPagada sp : lista)
+		{
+			sp.setCorreoElectronico(abo.getCorreoElectronico());
+			sp.setContrasena(abo.getContrasena());
+			System.out.println(sp.getColumna());
+			System.out.println(sp.getFila());
+			agregarSillaPagada(sp);
+		}
 	}
 }
