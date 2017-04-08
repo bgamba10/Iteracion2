@@ -17,14 +17,30 @@ public class Abonamiento {
 
 	@JsonProperty(value="contrasena")
 	private String contrasena;
+	
+	@JsonProperty(value="eliminar")
+	private Integer eliminar;
+	
+	
 
 
 
-	public Abonamiento(@JsonProperty(value="sillas") List<SillaPagada> sillas, @JsonProperty(value="correoElectronico") String correo, @JsonProperty(value="contrasena") String contrasena) {
+	public Abonamiento(@JsonProperty(value="sillas") List<SillaPagada> sillas, @JsonProperty(value="correoElectronico") String correo, @JsonProperty(value="contrasena") String contrasena,@JsonProperty(value="eliminar") Integer eliminar) {
 		super();
 		this.sillas = sillas;
 		this.correoElectronico = correo; 
 		this.contrasena = contrasena; 
+		this.eliminar = eliminar;
+	}
+	
+
+	public Integer getEliminar() {
+		return eliminar;
+	}
+
+
+	public void setEliminar(Integer eliminar) {
+		this.eliminar = eliminar;
 	}
 
 

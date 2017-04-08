@@ -1,8 +1,10 @@
 package vos;
 
+import java.util.Date;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import oracle.sql.DATE;
+
 
 public class SillaPagada {
 
@@ -22,7 +24,7 @@ public class SillaPagada {
 	private String contrasena;
 	
 	@JsonProperty(value="fecha")
-	private DATE fecha;
+	private Date fecha;
 	
 	@JsonProperty(value="localidad")
 	private String localidad;
@@ -42,7 +44,7 @@ public class SillaPagada {
 
 	
 	public SillaPagada( @JsonProperty(value="idSillaPagada") int idSillaPagada, @JsonProperty(value="fila") String fila, @JsonProperty(value="columna") int columna, @JsonProperty(value="correoElectronico") String correoElectronico, @JsonProperty(value="contrasena") String contrasena,
-			@JsonProperty(value="fecha") DATE fecha, @JsonProperty(value="localidad") String localidad, @JsonProperty(value="NumeroFuncion") int numFuncion, @JsonProperty(value="espectaculo") String espectaculo, @JsonProperty(value="cuantas") Integer cuantas, @JsonProperty(value="sillaEliminar") Integer sillaEliminar) {
+			@JsonProperty(value="fecha") Date fecha, @JsonProperty(value="localidad") String localidad, @JsonProperty(value="NumeroFuncion") int numFuncion, @JsonProperty(value="espectaculo") String espectaculo, @JsonProperty(value="cuantas") Integer cuantas, @JsonProperty(value="sillaEliminar") Integer sillaEliminar) {
 		super();
 		this.idSillaPagada = idSillaPagada;
 		this.fila = fila;
@@ -134,11 +136,11 @@ public class SillaPagada {
 		this.contrasena = contrasena;
 	}
 
-	public DATE getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(DATE fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

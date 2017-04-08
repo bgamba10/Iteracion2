@@ -37,7 +37,15 @@ public class AbonamientoServices {
 	public void comprarAbonamiento(Abonamiento abo) {
 		
 		FestivAndesMaster fm = new FestivAndesMaster(getPath()); 
+		
+		if (abo.getEliminar() == null || abo.getEliminar() == 0)
+		{
+			fm.eliminarAbonamiento(abo); 
+		}
+		else 
+		{
 		fm.agregarAbonamiento(abo); 
+		}
 		
 		
 	}

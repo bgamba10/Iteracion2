@@ -431,7 +431,7 @@ public class SillaPagadaDAO {
 
 	public void comprarAbonamiento(Abonamiento abo) throws Exception {
 		// TODO Auto-generated method stub
-		List<SillaPagada> lista = new ArrayList<>(); 
+		List<SillaPagada> lista = abo.getSillas(); 
 		
 		for (SillaPagada sp : lista)
 		{
@@ -441,5 +441,44 @@ public class SillaPagadaDAO {
 			System.out.println(sp.getFila());
 			agregarSillaPagada(sp);
 		}
+	}
+
+	public void eliminarAbonamiento(Abonamiento abo) throws Exception {
+		// TODO Auto-generated method stub
+		String correo = abo.getCorreoElectronico(); 
+		String contrasena = abo.getContrasena(); 
+		
+		String sql1 = "SELECT USU_ID FROM ISIS2304A131720.USUARIO WHERE USU_CORREO = '" + correo + "' AND USU_CONTRASENA = '" + contrasena + "' AND ROL_ID ="+ 2;
+
+		PreparedStatement prepStmt1 = conn.prepareStatement(sql1);
+		recursos.add(prepStmt1);
+		ResultSet rs1 = prepStmt1.executeQuery();
+
+		String usuID = null;
+
+		while(rs1.next()){
+			usuID = rs1.getString("USU_ID");
+		}
+
+		if(usuID == null)
+		{
+			System.out.println("Usuario y/o contrasena invalidos, o no es cliente...");
+			throw new Exception("Usuario y/o contrasena invalidos, o no es cliente...");
+		}
+		
+		// Revisa cuales boletas tienen abo_id con el que se quiere borrar 
+		
+		String sql = "SELECT PAG_ID FROM ISIS2304A131720.SILLA_PAGADA WHERE ABO_ID = "+abo.getEliminar();
+
+		PreparedStatement prepStmt= conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+
+		while(rs.next()){
+			SillaPagada sp = new SillaPagada(0, null, 0, correo, contrasena, null, null, 0, null, 0, rs.getInt("PAG_ID"));
+			eliminarSilla(sp);
+		}
+
 	}
 }

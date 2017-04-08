@@ -414,4 +414,40 @@ public class FestivAndesMaster {
 		}
 	}
 
+	public void eliminarAbonamiento(Abonamiento abo) {
+		// TODO Auto-generated method stub
+		SillaPagadaDAO dao = new SillaPagadaDAO();
+
+		try 
+		{
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			dao.setConn(conn);
+			dao.eliminarAbonamiento(abo); 
+			conn.commit();
+
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	}
+
 }
