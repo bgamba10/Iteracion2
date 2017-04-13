@@ -12,8 +12,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import tm.FestivAndesMaster;
 import vos.UsuarioPreferencia;
 
@@ -24,13 +22,13 @@ public class UsuarioPreferenciaServices {
 	
 
 		/**
-		 * Atributo que usa la anotación @Context para tener el ServletContext de la conexión actual.
+		 * Atributo que usa la anotaciï¿½n @Context para tener el ServletContext de la conexiï¿½n actual.
 		 */
 		@Context
 		private ServletContext context;
 
 		/**
-		 * Método que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy actual dentro del servidor.
+		 * Mï¿½todo que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy actual dentro del servidor.
 		 * @return path de la carpeta WEB-INF/ConnectionData en el deploy actual.
 		 */
 		private String getPath() {
@@ -52,7 +50,7 @@ public class UsuarioPreferenciaServices {
 		
 
 	    /**
-	     * Método que expone servicio REST usando PUT que agrega el video que recibe en Json
+	     * Mï¿½todo que expone servicio REST usando PUT que agrega el video que recibe en Json
 	     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/video
 	     * @param video - video a agregar
 	     * @return Json con el video que agrego o Json con el error que se produjo
@@ -67,7 +65,7 @@ public class UsuarioPreferenciaServices {
 		
 		
 	    /**
-	     * Método que expone servicio REST usando POST que actualiza el video que recibe en Json
+	     * Mï¿½todo que expone servicio REST usando POST que actualiza el video que recibe en Json
 	     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/video
 	     * @param video - video a actualizar. 
 	     * @return Json con el video que actualizo o Json con el error que se produjo
@@ -81,7 +79,7 @@ public class UsuarioPreferenciaServices {
 		}
 		
 	    /**
-	     * Método que expone servicio REST usando DELETE que actualiza el video que recibe en Json
+	     * Mï¿½todo que expone servicio REST usando DELETE que actualiza el video que recibe en Json
 	     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/video
 	     * @param video - video a aliminar. 
 	     * @return Json con el video que elimino o Json con el error que se produjo

@@ -6,7 +6,7 @@ public class Funcion {
 
 	
 	@JsonProperty(value="numFuncion")
-	private int numFuncion;
+	private Integer numFuncion;
 	
 	@JsonProperty(value="correo")
 	private String correo; 
@@ -14,7 +14,7 @@ public class Funcion {
 	@JsonProperty(value="contrasena")
 	private String contrasena;
 
-	public Funcion(@JsonProperty(value="numFuncion") int numFuncion, @JsonProperty(value="correo") String correo, 	@JsonProperty(value="contrasena") String contrasena) {
+	public Funcion(@JsonProperty(value="numFuncion") Integer numFuncion, @JsonProperty(value="correo") String correo, 	@JsonProperty(value="contrasena") String contrasena) {
 		super();
 		this.numFuncion = numFuncion;
 		this.correo = correo;
@@ -25,7 +25,7 @@ public class Funcion {
 		return numFuncion;
 	}
 
-	public void setNumFuncion(int numFuncion) {
+	public void setNumFuncion(Integer numFuncion) {
 		this.numFuncion = numFuncion;
 	}
 

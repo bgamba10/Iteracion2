@@ -20,7 +20,6 @@ import tm.FestivAndesMaster;
 import vos.Funcion;
 import vos.FuncionEspectaculoR;
 import vos.ListaSitioFuncion;
-import vos.SitioFuncion;
 import vos.FuncionEspectaculo;
 
 @Path("espectaculos")

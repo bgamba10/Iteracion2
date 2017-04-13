@@ -3,15 +3,14 @@ package rest;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import tm.FestivAndesMaster;
 import vos.SillaPagada;
-import vos.UsuarioPreferencia;
 
 
 @Path("sillasPagadas")
@@ -33,15 +32,17 @@ public class SillaPagadaServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public void comparBoleta(SillaPagada up) {
+	public Response comparBoleta(SillaPagada up) {
 		FestivAndesMaster fm = new FestivAndesMaster(getPath()); 
 		if (up.getSillaEliminar() != null)
 		{
-			fm.eliminarSilla(up); 
+			fm.eliminarSilla(up);
+			return Response.status(200).entity(up).build();
 		}
 		else 
 		{
 			fm.agregarSillaPagada(up); 
+			return Response.status(200).entity(up).build();
 		}
 		
 	}

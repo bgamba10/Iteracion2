@@ -8,15 +8,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import dao.CompaniaDAO;
 import dao.FuncionDAO;
 import dao.FuncionEspectaculoDAO;
 import dao.SillaPagadaDAO;
 import dao.SitioDAO;
 import dao.SitioLocalidadDAO;
+import dao.UsuarioDAO;
 import dao.UsuarioPreferenciaDAO;
 import vos.Abonamiento;
+import vos.Compania;
 import vos.Funcion;
 import vos.FuncionEspectaculoR;
+import vos.ListaCompania;
 import vos.FuncionEspectaculo;
 
 import vos.ListaSitioFuncion;
@@ -25,14 +29,14 @@ import vos.ListaSitioFuncion;
 import vos.ListaSitioLocalidad;
 
 import vos.ListaSitios;
-import vos.ListaVideos;
+import vos.ListaUsuarios;
 import vos.SillaPagada;
 import vos.Sitio;
 
 import vos.SitioFuncion;
 
 import vos.SitioLocalidad;
-
+import vos.Usuario;
 import vos.UsuarioPreferencia;
 
 public class FestivAndesMaster {
@@ -162,7 +166,7 @@ public class FestivAndesMaster {
 	}
 
 	public void crearPreferencia(UsuarioPreferencia up) {
-		
+
 		UsuarioPreferenciaDAO dao = new UsuarioPreferenciaDAO();
 		try {
 
@@ -171,9 +175,9 @@ public class FestivAndesMaster {
 			dao.setConn(conn);
 			dao.addUsuarioPreferencia(up);
 			conn.commit();
-			
+
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -215,7 +219,7 @@ public class FestivAndesMaster {
 			}
 		}
 	}
-	
+
 	public void registrarRealizacion(Funcion funcion) 
 	{
 		FuncionDAO dao= new FuncionDAO();
@@ -234,31 +238,31 @@ public class FestivAndesMaster {
 		{
 			e.printStackTrace();
 		} 
-		
+
 	}
-	
+
 	public FuncionEspectaculo funcionesEspectaculo(FuncionEspectaculoR fe) throws SQLException {
-		
+
 		ArrayList<FuncionEspectaculoR> lista; 
-		
+
 		FuncionEspectaculoDAO dao = new FuncionEspectaculoDAO(); 
-		
+
 		this.conn = darConexion();
 		dao.setConn(conn);
 		lista = dao.getFuncionEspectaculo(fe); 
 		conn.commit(); 
-		
+
 		FuncionEspectaculo listaReturn = new FuncionEspectaculo(lista);
-		
+
 		return listaReturn;
-}
-	
+	}
+
 	public ListaSitios consultarSitios(String nombre, String criterio, String orden) throws SQLException 
 	{
 		// TODO Auto-generated method stub
 		ArrayList<Sitio> lista = null; 
 		SitioDAO dao = new SitioDAO(); 
-		
+
 		try 
 		{
 			//////Transacción
@@ -287,13 +291,13 @@ public class FestivAndesMaster {
 		}
 		return new ListaSitios(nombre, lista);
 	}
-	
+
 	public ListaSitioLocalidad generarReporteFuncion(int numeroFuncion) throws SQLException 
 	{
 		// TODO Auto-generated method stub
 		ArrayList<SitioLocalidad> lista = null; 
 		SitioLocalidadDAO dao = new SitioLocalidadDAO(); 
-		
+
 		try 
 		{
 			//////Transacción
@@ -376,7 +380,7 @@ public class FestivAndesMaster {
 				e1.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	public void agregarAbonamiento(Abonamiento abo) {
@@ -448,6 +452,98 @@ public class FestivAndesMaster {
 			}
 		}
 	}
-	}
 
+	public void cancelarFuncion(Funcion funcion) {
+		// TODO Auto-generated method stub
+		
+		FuncionDAO dao = new FuncionDAO();
+
+		try 
+		{
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			dao.setConn(conn);
+			dao.cancelarFuncion(funcion); 
+			conn.commit();
+
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+	}
+	
+
+	public ListaUsuarios consultarAsistencia(Usuario usuario) {
+		// TODO Auto-generated method stub
+		
+		ArrayList<Usuario> lista = null;
+		UsuarioDAO dao = new UsuarioDAO();
+
+		try 
+		{
+			this.conn = darConexion();
+
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} 
+		dao.setConn(conn);
+		try 
+		{
+			lista = dao.consultarAsistencia(usuario);
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return new ListaUsuarios(lista); 
+	}
+	
+	public ListaCompania consultarCompania(Integer numeroCompania) {
+		// TODO Auto-generated method stub
+		
+		ArrayList<Compania> lista = null;
+		CompaniaDAO dao = new CompaniaDAO();
+
+		try 
+		{
+			this.conn = darConexion();
+
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} 
+		dao.setConn(conn);
+		try 
+		{
+			lista = dao.consultarCompania(numeroCompania);
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return new ListaCompania(lista); 
+	}
 }
+
+

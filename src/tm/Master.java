@@ -18,8 +18,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import javax.ws.rs.core.Response;
-
 import dao.DAOTablaVideos;
 import vos.Video;
 import vos.ListaVideos;
