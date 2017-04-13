@@ -9,13 +9,7 @@ public class Usuario {
 	////Atributos
 
 	@JsonProperty(value="idCliente")
-	private int idCliente;
-
-	@JsonProperty(value="nombre")
-	private String nombre;
-	
-	@JsonProperty(value="apellido")
-	private String apellido;
+	private Integer idCliente;
 	
 	@JsonProperty(value="correoElectronico")
 	private String correoElectronico;
@@ -23,50 +17,28 @@ public class Usuario {
 	@JsonProperty(value="contrasena")
 	private String contrasena;
 	
-	@JsonProperty(value="rol")
-	private String rol;
-
-	@JsonProperty(value="preferencias")
-	private List<String> preferencias;
+	@JsonProperty(value="discriminacion")
+	private String discriminacion;
 	
-	
+	@JsonProperty(value="numFuncion")
+	private Integer numFuncion;
 
-	public Usuario(@JsonProperty(value="idCliente")	int idCliente,	@JsonProperty(value="nombre")	String nombre, 	@JsonProperty(value="apellido")	String apellido, @JsonProperty(value="correoElectronico") String correoElectronico, @JsonProperty(value="contrasena")	String contrasena, 	@JsonProperty(value="rol")	String rol,	@JsonProperty(value="preferencias")	List<String> preferencias) 
-	{
+	public Usuario(@JsonProperty(value="idCliente") Integer idCliente, @JsonProperty(value="correoElectronico") String correoElectronico,@JsonProperty(value="contrasena") String contrasena,@JsonProperty(value="discriminacion") String discriminacion,
+			@JsonProperty(value="numFuncion") Integer numFuncion) {
 		super();
 		this.idCliente = idCliente;
-		this.nombre = nombre;
-		this.apellido = apellido;
 		this.correoElectronico = correoElectronico;
 		this.contrasena = contrasena;
-		this.rol = rol;
-		this.preferencias = preferencias;
-				
-		
+		this.discriminacion = discriminacion;
+		this.numFuncion = numFuncion;
 	}
 
-	public int getIdCliente() {
+	public Integer getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
 	}
 
 	public String getCorreoElectronico() {
@@ -85,22 +57,21 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 
-	public String getRol() {
-		return rol;
+	public String getDiscriminacion() {
+		return discriminacion;
 	}
 
-	public void setRol(String rol) {
-		this.rol = rol;
+	public void setDiscriminacion(String discriminacion) {
+		this.discriminacion = discriminacion;
 	}
 
-	public List<String> getPreferencias() {
-		return preferencias;
+	public Integer getNumFuncion() {
+		return numFuncion;
 	}
 
-	public void setPreferencias(List<String> preferencias) {
-		this.preferencias = preferencias;
+	public void setNumFuncion(Integer numFuncion) {
+		this.numFuncion = numFuncion;
 	}
-	
 	
 	
 }

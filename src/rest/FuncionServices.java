@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -16,8 +17,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.FestivAndesMaster;
+import tm.Master;
 import vos.Funcion;
 import vos.FuncionEspectaculoR;
+import vos.Video;
 import vos.FuncionEspectaculo;
 
 @Path("funciones")
@@ -45,14 +48,8 @@ public class FuncionServices {
 	private String doErrorMessage(Exception e){
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
-	
-	@GET
-	@Path("sayHello")
-	public String sayHello(@QueryParam("name")String name) {
-		System.out.println("aasaaa");
-		return "asa: "+name;
 
-	}
+
 
 	/**
 	 * M�todo que expone servicio REST usando PUT que agrega los videos que recibe en Json
@@ -72,7 +69,7 @@ public class FuncionServices {
 	 * M�todo que expone servicio REST usando GET que da todos los videos de la base de datos.
 	 * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos
 	 * @return Json con todos los videos de la base de datos O json con 
-     * el error que se produjo
+	 * el error que se produjo
 	 */
 	@POST
 	@Path("/consulta")
@@ -81,9 +78,9 @@ public class FuncionServices {
 	public Response getVideos(FuncionEspectaculoR fe) 
 	{
 		FestivAndesMaster fm = new FestivAndesMaster(getPath());
-		
+
 		FuncionEspectaculo lista = null;
-		
+
 		try {
 			lista = fm.funcionesEspectaculo(fe);
 		} catch (SQLException e) {
@@ -92,4 +89,23 @@ public class FuncionServices {
 		}
 		return Response.status(200).entity(lista).build();
 	}
+
+	@POST
+	@Path("/cancelar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteFuncion(Funcion funcion) {
+		FestivAndesMaster tm = new FestivAndesMaster(getPath());
+		try 
+		{
+			tm.cancelarFuncion(funcion);
+		} 
+		catch (Exception e) 
+		{
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(funcion).build();
+	}
+
+
 }
